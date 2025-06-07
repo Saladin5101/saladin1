@@ -8,12 +8,11 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var isDeleting = false
-
+    
     var body: some View {
         VStack {
             Button("Clear Cache") {
                 isDeleting = true
-                // 调用删除函数
                 deleteCacheFiles()
             }
             .padding()
@@ -28,30 +27,30 @@ struct ContentView: View {
         }
         .frame(minWidth: 200, minHeight: 100)
     }
-    
+//UI
     func deleteCacheFiles() {
         let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
-            guard let url = cacheURL else { return }
-
-            do {
-                // 获取缓存目录中的所有文件和文件夹
-                let fileURLs = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])
-                
-                // 遍历文件并删除
-                for fileURL in fileURLs {
-                    try FileManager.default.removeItem(at: fileURL)
-                }
-                
-                print("Cache files deleted successfully.")
-            } catch {
-                print("Could not delete cache files: \(error)")
+        guard let url = cacheURL else { return }
+        
+        do {
+            
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])
+            
+            
+            for fileURL in fileURLs {
+                try FileManager.default.removeItem(at: fileURL)
             }
-
+            
+            print("Cache files deleted successfully.")
+        } catch {
+            print("Could not delete cache files: code\(error)")
+        }
     }
 }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+//Clean
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+        }
     }
-}
+//UI
